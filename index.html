@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="robots" content="noindex,nofollow">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0E6E63"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="robots" content="noindex,nofollow">
 <style>[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Nuru for PSI Ethiopia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap">
@@ -544,6 +544,25 @@ input[type=datetime-local]{border:1px solid var(--line);border-radius:9px;paddin
 .camp-banner .lnk.light{color:var(--teal-ink)!important}
 .phone .tabs{border-top:1px solid #E6ECEB;background:rgba(255,255,255,.96)}
 svg.chev{width:18px;height:18px;flex-shrink:0;fill:none;stroke:#A7B4B2;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* v4: compact teal header, card lifted into it, colourful service grid */
+.hhead2{background:linear-gradient(150deg,#0E6E63 0%,#14A38F 70%,#2DBBA6 100%);padding:10px 16px 64px;color:#fff}
+.hhead2 .hh-top{display:flex;align-items:center;gap:10px;margin:0}
+.hhead2 .me-av{width:40px;height:40px;background:#fff;color:var(--teal-ink)}
+.hh-hi{flex:1;display:grid;line-height:1.25;min-width:0}
+.hh-hi b{font:600 17px var(--display);color:#fff}
+.hh-hi small{color:#D3F0EA;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hhead2 .ib2{background:rgba(255,255,255,.16);color:#fff}
+.hhead2 .ib2 .dot{border-color:#14A38F}
+.hsect{padding-top:0}
+.mc-lift{margin-top:-52px}
+.mcard .lockup .lk-sub{font-size:9px}
+.sbar.teal{background:#0E6E63;color:#fff}.sbar.teal .sb-i i{background:#fff}.sbar.teal .sb-i em{border-color:#fff}.sbar.teal .sb-i em::after{background:#fff}
+.svgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 6px}
+.svt{display:grid;justify-items:center;gap:7px;border:0;background:transparent;padding:6px 2px;border-radius:12px;font:600 12.5px var(--body);color:var(--ink);text-align:center;line-height:1.2}
+.svt:active{background:#F4F8F7}
+.svi{width:50px;height:50px;border-radius:16px;display:grid;place-items:center}
+.svi svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+svg.chev{transform:none}
 </style>
 </head><body><div id="app"></div><script>
 /* SAMPLE DATA — invented for the demo, not real PSI staff. Seeded so it is the same on every load. */
@@ -669,7 +688,7 @@ function phoneHTML(){
  const sc=EMP.screens[EMP.cur];
   const tabs=[['home','home','Home'],['benefits','shield','Benefits'],['book','calendar','Book'],['claims','receipt','Claims'],['inbox','bell','Inbox']];
   const tabRoot=EMP.tabOf?.[EMP.cur]||EMP.cur;
- return '<div class="phone" aria-label="Employee app"><div class="sbar" aria-hidden="true"><b>9:41</b><span class="sb-i"><i></i><i></i><i></i><i></i><em></em></span></div><div class="scr">'+(sc?sc():'')+'</div><nav class="tabs">'+tabs.map(t=>'<button data-act="emptab" data-s="'+t[0]+'" class="'+(tabRoot===t[0]?'on':'')+'">'+icon(t[1])+t[2]+(t[0]==='inbox'&&D.inbox.filter(m=>!m.read).length?'<span class="badge tb-badge">'+D.inbox.filter(m=>!m.read).length+'</span>':'')+'</button>').join('')+'</nav></div>';
+ return '<div class="phone" aria-label="Employee app"><div class="sbar'+(EMP.cur==='home'?' teal':'')+'" aria-hidden="true"><b>9:41</b><span class="sb-i"><i></i><i></i><i></i><i></i><em></em></span></div><div class="scr">'+(sc?sc():'')+'</div><nav class="tabs">'+tabs.map(t=>'<button data-act="emptab" data-s="'+t[0]+'" class="'+(tabRoot===t[0]?'on':'')+'">'+icon(t[1])+t[2]+(t[0]==='inbox'&&D.inbox.filter(m=>!m.read).length?'<span class="badge tb-badge">'+D.inbox.filter(m=>!m.read).length+'</span>':'')+'</button>').join('')+'</nav></div>';
 }
 let OTP=0;
 ACT.otpSend=()=>{const v=($('#apPhone')?.value||'').replace(/\s/g,'');if(!/^(\+?251)?0?9\d{8}$/.test(v)){$('#apErr').textContent='Enter your phone number, like 0911 234 567.';return}OTP=1;render()};
@@ -1139,7 +1158,7 @@ function qr(seed,size){
 function mcard(big){
  const e=me(),P=planOf(e);
  return'<div class="mcard'+(big?' big':'')+'"'+(big?'':' data-act="empgo" data-s="card" role="button" tabindex="0" aria-label="Open my member card"')+'>'
- +'<div class="mc-top">'+logo('#fff',big?26:20)+'<span class="mc-plan">'+esc(P.name)+'</span></div>'
+ +'<div class="mc-top">'+lockup('#fff',big?26:20,'rgba(255,255,255,.8)')+'<span class="mc-plan">'+esc(P.name)+'</span></div>'
  +'<div class="mc-mid"><div><div class="mc-name">'+esc(e.name)+'</div><div class="mc-id num">Member ID '+memberId(e)+'</div><div class="mc-org">PSI Ethiopia</div></div>'+(big?'':qr(e.id,62))+'</div>'
  +'<div class="mc-foot"><span>Valid to 31 Dec 2026</span><span>'+(big?'Tihut Health Services':'Tap to show')+'</span></div></div>';
 }
@@ -1158,16 +1177,25 @@ const regBtn=(c,cls='')=>c.status==='Planned'?'<button class="btn sm ghost '+cls
 const campBanner=c=>'<div class="camp-banner"><span class="cb-eye">'+icon('megaphone')+esc(c.theme)+'</span><h3>'+esc(c.title)+'</h3><p>'+wd(c.date)+' '+dnum(c.date)+' '+mon(c.date)+' · '+esc(c.where)+'. Free and private.</p><div class="cb-row">'+regBtn(c,'light')+'<button class="lnk light" data-act="empgo" data-s="campaigns">All campaigns</button></div></div>';
 
 /* HOME */
+/* duotone service icons: [bg, ink, svg body] */
+const SVC={
+ book:['#E3F5F1','#0B7F70','<rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="currentColor" opacity=".18"/><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/>'],
+ refund:['#FDEBDD','#C25E17','<path d="M6 3h12v18l-2.5-1.6L13 21l-2.5-1.6L8 21l-2-1.3z" fill="currentColor" opacity=".18"/><path d="M6 3h12v18l-2.5-1.6L13 21l-2.5-1.6L8 21l-2-1.3z"/><path d="M9 8h6M9 11.5h6"/><path d="M14 16h-4.5m0 0l1.6-1.6M9.5 16l1.6 1.6"/>'],
+ talk:['#EEE8FB','#6B4BC4','<path d="M4 5.5h16v11H10l-4.5 3.5V16.5H4z" fill="currentColor" opacity=".18"/><path d="M4 5.5h16v11H10l-4.5 3.5V16.5H4z"/><path d="M12 13.6s-3-1.7-3-3.6a1.6 1.6 0 013-.8 1.6 1.6 0 013 .8c0 1.9-3 3.6-3 3.6z"/>'],
+ find:['#E5EEF9','#2F6FB5','<path d="M12 21.5s-7-6-7-11.5a7 7 0 0114 0c0 5.5-7 11.5-7 11.5z" fill="currentColor" opacity=".18"/><path d="M12 21.5s-7-6-7-11.5a7 7 0 0114 0c0 5.5-7 11.5-7 11.5z"/><path d="M12 7v6M9 10h6"/>'],
+ cover:['#E3F5EA','#1E8A4F','<path d="M12 3l7.5 3v5.5c0 4.8-3.3 8-7.5 9.5-4.2-1.5-7.5-4.7-7.5-9.5V6z" fill="currentColor" opacity=".18"/><path d="M12 3l7.5 3v5.5c0 4.8-3.3 8-7.5 9.5-4.2-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/>'],
+ camp:['#FCE4EC','#C2185B','<path d="M3.5 10v4h3.5l7 5V5l-7 5z" fill="currentColor" opacity=".18"/><path d="M3.5 10v4h3.5l7 5V5l-7 5z"/><path d="M17.5 9a4.2 4.2 0 010 6M19.8 6.6a7.5 7.5 0 010 10.8"/>']};
+const svcIcon=k=>'<span class="svi" style="background:'+SVC[k][0]+';color:'+SVC[k][1]+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+SVC[k][2]+'</svg></span>';
 S.home=()=>{
  const e=me(),L=totalLimit(e),U=totalUsed(e),un=D.inbox.filter(m=>!m.read).length;
  const up=D.bookings.filter(b=>b.emp===D.me&&b.date>=TODAY).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0];
  const camp=D.campaigns.find(c=>c.id==='c1');
- const Q=[['calendar','Book a visit','Hospitals and clinics on credit','bkStart'],['receipt','Claim a refund','Paid cash? Send the receipt','rfStart'],['heart','Talk to a counsellor','Private, in Amharic or English','empgo','counselling'],['clinic','Find a provider','Hayat, St. Gabriel, Tihut and more','empgo','clinics'],['shield','My benefits','Limits and what is left','emptab','benefits'],['megaphone','Health campaigns','Free screening at your office','empgo','campaigns']];
- return'<header class="hhead"><div class="hh-top">'+lockup('#14A38F',22)+'<div class="hh-act"><button class="ib2" data-act="emptab" data-s="inbox" aria-label="Inbox, '+un+' unread">'+icon('bell')+(un?'<span class="dot">'+un+'</span>':'')+'</button><span class="me-av" aria-hidden="true">'+esc(e.first[0]+e.last[0])+'</span></div></div><h1>Selam, '+esc(e.first)+'</h1><p class="muted">'+esc(D.org.name)+' · '+esc(planOf(e).name)+'</p></header>'
- +'<section class="sect">'+mcard()
+ const Q=[['book','Book a visit','bkStart'],['refund','Claim a refund','rfStart'],['talk','Counsellor','empgo','counselling'],['find','Find a provider','empgo','clinics'],['cover','My benefits','emptab','benefits'],['camp','Campaigns','empgo','campaigns']];
+ return'<header class="hhead2"><div class="hh-top"><span class="me-av" aria-hidden="true">'+esc(e.first[0]+e.last[0])+'</span><div class="hh-hi"><b>Selam, '+esc(e.first)+'</b><small>'+esc(D.org.name)+' · '+esc(planOf(e).name)+'</small></div><button class="ib2" data-act="emptab" data-s="inbox" aria-label="Inbox, '+un+' unread">'+icon('bell')+(un?'<span class="dot">'+un+'</span>':'')+'</button></div></header>'
+ +'<section class="sect hsect"><div class="mc-lift">'+mcard()+'</div>'
+ +'<div class="svgrid">'+Q.map(q=>'<button class="svt" data-act="'+q[2]+'"'+(q[3]?' data-s="'+q[3]+'"':'')+'>'+svcIcon(q[0])+'<span>'+q[1]+'</span></button>').join('')+'</div>'
  +'<button class="covrow" data-act="emptab" data-s="benefits"><span><span class="small muted">Cover left this year</span><b class="num">'+birr(L-U)+'</b><span class="bar"><i style="width:'+(100-pct(U,L))+'%"></i></span><span class="small muted num">'+birr(U)+' used of '+birr(L)+'</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>'
  +(up?'<h2 class="sh">Upcoming visit</h2>'+bookingCard(up):'')
- +'<h2 class="sh">What would you like to do?</h2><div class="menu">'+Q.map(q=>'<button class="mrow" data-act="'+q[3]+'"'+(q[4]?' data-s="'+q[4]+'"':'')+'><span class="mi">'+icon(q[0])+'</span><span class="mt"><b>'+q[1]+'</b><small>'+q[2]+'</small></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>').join('')+'</div>'
  +(camp?'<h2 class="sh">At your office</h2>'+campBanner(camp):'')
  +'<p class="pw muted small">Need help? Tap Inbox to message Nuru support</p></section>';
 };
