@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#14A38F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="robots" content="noindex,nofollow">
 <style>[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Nuru for PSI Ethiopia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap">
@@ -330,9 +330,9 @@ input[type=datetime-local]{border:1px solid var(--line);border-radius:9px;paddin
 .lnk.light{color:#fff;text-decoration:underline}
 .pw{text-align:center;margin:6px 0 0}.pw b{color:var(--deep)}
 /* benefits */
-.route{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.route li{display:flex;gap:12px}
-.route p{margin:2px 0 0;font-size:13px;color:var(--mute)}
+.howroute{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.howroute li{display:flex;gap:12px}
+.howroute p{margin:2px 0 0;font-size:13px;color:var(--mute)}
 .rn{width:26px;height:26px;border-radius:50%;background:var(--deep);color:#fff;display:grid;place-items:center;font:600 13px var(--display);flex-shrink:0}
 .ben{display:grid;gap:6px;padding:12px 0;border-top:1px solid var(--line)}
 .card>h3+.ben{border-top:0;padding-top:2px}
@@ -468,6 +468,33 @@ input[type=datetime-local]{border:1px solid var(--line);border-radius:9px;paddin
 .tip{display:flex;gap:12px;align-items:flex-start;background:var(--mint);border-color:var(--mint-2)}
 .tip>svg{width:22px;height:22px;color:var(--teal-ink);flex-shrink:0;margin-top:2px}
 .tip p{margin:0 0 8px}
+.tb-badge{position:absolute;margin-left:22px;margin-top:-4px}
+/* standalone app mode */
+.appmode{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(ellipse at top,#E3F5F1,#F6F9F8 60%)}
+.appmode .phone{grid-column:auto}
+@media (max-width:500px){.appmode{padding:0;display:block}.appmode .phone{width:100%;height:100vh;height:100dvh;max-height:none;min-height:0;border:0;border-radius:0;box-shadow:none}}
+.phone.al{background:#fff}
+.al-hero{background:linear-gradient(150deg,#0E6E63 0%,#14A38F 55%,#4CC2AE 100%);padding:22px 22px 0;color:#fff;position:relative;overflow:hidden;min-height:250px;display:grid;align-content:space-between}
+.al-top{display:flex;justify-content:space-between;align-items:center;gap:10px;position:relative;z-index:1}
+.al-lang{background:rgba(255,255,255,.15);border:0}
+.al-lang button{color:#E6F7F3}.al-lang button.on{background:#fff;color:var(--teal-ink)}
+.al-pic{position:relative;height:150px}
+.al-pic span{position:absolute;border-radius:999px;border:26px solid rgba(255,255,255,.14);width:120px;height:210px;transform:rotate(-38deg)}
+.al-pic span:nth-child(1){left:20px;top:10px}.al-pic span:nth-child(2){left:150px;top:-40px;border-color:rgba(255,255,255,.22)}.al-pic span:nth-child(3){right:-30px;top:30px}
+.al-body{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:12px;border-radius:24px 24px 0 0;margin-top:-22px;background:#fff;position:relative}
+.al-body h1{font-size:24px}
+.al-body p{margin:0;color:var(--mute)}
+.al-ph{display:flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+.al-ph span{padding:12px;background:var(--bg);font-weight:600;color:var(--ink);border-right:1.5px solid var(--line)}
+.al-ph input{border:0!important;border-radius:0!important;font-size:17px;padding:12px!important;letter-spacing:.04em}
+.al-err{color:var(--bad)!important;font-size:13px;min-height:1em}
+.al-btn{padding:14px;font-size:15px;border-radius:12px}
+.al-tg{display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px;font:600 14px var(--display);color:var(--ink)}
+.al-link{border:0;background:none;color:var(--teal-ink);font-weight:600;padding:4px}
+.otp{display:flex;gap:8px;justify-content:space-between}
+.otp input{width:44px!important;height:54px;text-align:center;font:600 22px var(--display);border:1.5px solid var(--line);border-radius:12px;padding:0!important}
+.al-foot{margin-top:auto!important;text-align:center;font-size:12px}
+.al-foot b{color:var(--ink)}
 </style>
 </head><body><div id="app"></div><script>
 /* SAMPLE DATA — invented for the demo, not real PSI staff. Seeded so it is the same on every load. */
@@ -526,6 +553,8 @@ for(let i=0;i<90;i++){
   date:'2026-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0'),month:m,step:st,status:query?'Needs info':steps[st],
   note:query?'Receipt photo is blurry. Please send a clearer photo.':'',receipt:type==='refund'?'receipt_'+cn+'.jpg':null,payTo:type==='refund'?(rnd()<.6?'telebirr':'CBE account'):null});}
 claims.sort((a,b)=>b.date.localeCompare(a.date));
+/* keep the demo employee's totals equal to her own claims */
+for(const c of CATS)if(c.id!=='mh')emps[0].used[c.id]=Math.min(PLANS.classic.limits[c.id],claims.filter(x=>x.emp===emps[0].id&&x.cat===c.id&&x.status!=='Needs info').reduce((a,x)=>a+x.amount,0));
 const messages=[
  {id:'m3',date:'2026-10-06',channels:['sms','email'],to:'All staff (240)',toIds:'all',subject:'Free breast & cervical screening this Friday',body:'Dear colleague, Tihut clinic team will be at the PSI office on Friday 17 Oct, 9:00–15:00. Screening is free and private. Book your slot in the Nuru app.',sent:240,delivered:236,opened:171},
  {id:'m2',date:'2026-09-15',channels:['email'],to:'Finance (24)',toIds:'dept:Finance',subject:'Your Nuru cover for 2026',body:'Your health cover details are now in the Nuru app. Open it to see your card and limits.',sent:24,delivered:24,opened:19},
@@ -576,7 +605,8 @@ const logo=(color='#fff',h=26)=>'<svg role="img" aria-label="nuru" height="'+h+'
 const POWERED='Powered by <b>Tihut Health Services</b>';
 const HR={views:{},nav:[],cur:'overview',go(v){HR.cur=v;closeDrawer();closeModal();render();window.scrollTo(0,0)}};
 const EMP={screens:{},cur:'home',stack:[],go(s){EMP.stack.push(EMP.cur);EMP.cur=s;render();$('.phone .scr')?.scrollTo(0,0)},back(){EMP.cur=EMP.stack.pop()||'home';render()},tab(s){EMP.stack=[];EMP.cur=s;render()}};
-let PORTAL='hr';
+const MODE=window.NURU_MODE||'hr';
+let PORTAL=MODE==='app'?'emp':'hr';
 ACT.portal=el=>{PORTAL=el.dataset.p;render()};
 ACT.hrgo=el=>HR.go(el.dataset.v);ACT.empgo=el=>EMP.go(el.dataset.s);ACT.emptab=el=>EMP.tab(el.dataset.s);ACT.empback=()=>EMP.back();
 let AUTH=false;
@@ -584,6 +614,25 @@ ACT.signin=()=>{AUTH=true;PORTAL='hr';render()};ACT.signinEmp=()=>{AUTH=true;POR
 function login(){return'<div class="login"><section class="lg-brand"><div class="lg-in">'+logo('#fff',54)+'<h1>Quality, accessible healthcare for all</h1><p>One place to run your staff health benefits: cover, credit visits at partner hospitals, refunds, campaigns and private counselling.</p><div class="lg-pw">'+POWERED+'</div></div></section><section class="lg-form"><form class="lg-card" onsubmit="event.preventDefault();ACT.signin()"><h2>Sign in to Nuru for Employers</h2><p class="muted">Use your work email. We send a one-time code to sign in.</p><div class="field"><label for="lgMail">Work email</label><input id="lgMail" type="email" placeholder="you@company.org" autocomplete="off"></div><button class="btn" type="submit">Continue</button><div class="lg-or"><span>or</span></div><button class="btn ghost" type="button" data-act="signin">'+MS+' Sign in with Microsoft</button><p class="small muted">Staff member? <a href="#" data-act="signinEmp">Open the Nuru employee app</a></p></form><p class="small muted lg-foot">© 2026 Nuru · IDNET Technology PLC · Privacy · Terms</p></section></div>'}
 const MS='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="7.5" height="7.5" fill="#F25022"/><rect x="8.5" width="7.5" height="7.5" fill="#7FBA00"/><rect y="8.5" width="7.5" height="7.5" fill="#00A4EF"/><rect x="8.5" y="8.5" width="7.5" height="7.5" fill="#FFB900"/></svg>';
 function shell(){return'<header class="topbar"><a href="#" data-act="hrgo" data-v="overview" class="brand" aria-label="Nuru home">'+logo('#14A38F',24)+'</a><span class="vr"></span><span class="org"><span class="orgav">PSI</span>'+esc(D.org.name)+'</span><div class="switch" role="tablist" aria-label="Choose view"><button role="tab" data-act="portal" data-p="hr" class="'+(PORTAL==='hr'?'on':'')+'">HR portal</button><button role="tab" data-act="portal" data-p="emp" class="'+(PORTAL==='emp'?'on':'')+'">Employee app</button></div><div class="tb-r"><button class="ib" aria-label="Search" data-act="hrgo" data-v="employees">'+icon('search')+'</button><button class="ib" aria-label="Notifications" data-act="hrgo" data-v="claims">'+icon('bell')+'<i class="dot"></i></button><button class="me" data-act="signout" title="Sign out"><span class="av">HR</span><span class="who"><b>HR Manager</b><small>PSI Ethiopia</small></span></button></div></header>'}
+function phoneHTML(){
+ const sc=EMP.screens[EMP.cur];
+  const tabs=[['home','home','Home'],['benefits','shield','Benefits'],['book','calendar','Book'],['claims','receipt','Claims'],['inbox','bell','Inbox']];
+  const tabRoot=EMP.tabOf?.[EMP.cur]||EMP.cur;
+ return '<div class="phone" aria-label="Employee app"><div class="scr">'+(sc?sc():'')+'</div><nav class="tabs">'+tabs.map(t=>'<button data-act="emptab" data-s="'+t[0]+'" class="'+(tabRoot===t[0]?'on':'')+'">'+icon(t[1])+t[2]+(t[0]==='inbox'&&D.inbox.filter(m=>!m.read).length?'<span class="badge tb-badge">'+D.inbox.filter(m=>!m.read).length+'</span>':'')+'</button>').join('')+'</nav></div>';
+}
+let OTP=0;
+ACT.otpSend=()=>{const v=($('#apPhone')?.value||'').replace(/\s/g,'');if(!/^(\+?251)?0?9\d{8}$/.test(v)){$('#apErr').textContent='Enter your phone number, like 0911 234 567.';return}OTP=1;render()};
+ACT.otpBack=()=>{OTP=0;render()};
+ACT.otpVerify=()=>{AUTH=true;OTP=0;EMP.cur='home';EMP.stack=[];render()};
+let LANG='en';ACT.lang=el=>{LANG=el.dataset.l;render()};
+function appLogin(){
+ const am=LANG==='am';
+ const head='<div class="al-top">'+logo('#fff',44)+'<div class="seg al-lang"><button data-act="lang" data-l="en" class="'+(am?'':'on')+'">English</button><button data-act="lang" data-l="am" class="'+(am?'on':'')+'">አማርኛ</button></div></div>';
+ const body=OTP?'<h1>'+(am?'ኮዱን ያስገቡ':'Enter the code')+'</h1><p>'+(am?'ወደ ስልክዎ የተላከውን ባለ 6 አሃዝ ኮድ ያስገቡ።':'We sent a 6-digit code by SMS to your phone.')+'</p><div class="otp">'+[4,8,2,9,1,6].map((n,i)=>'<input aria-label="Digit '+(i+1)+'" inputmode="numeric" maxlength="1" value="'+n+'">').join('')+'</div><button class="btn al-btn" data-act="otpVerify">'+(am?'አረጋግጥ':'Verify and continue')+'</button><button class="al-link" data-act="otpBack">'+(am?'ቁጥር ቀይር':'Change number')+'</button>'
+ :'<h1>'+(am?'እንኳን ደህና መጡ':'Welcome to Nuru')+'</h1><p>'+(am?'የሥራ ቦታዎ የጤና ጥቅማ ጥቅም። ለመግባት ስልክ ቁጥርዎን ያስገቡ።':'Your health benefit from work. Sign in with the phone number your employer gave HR.')+'</p><label class="flabel" for="apPhone">'+(am?'ስልክ ቁጥር':'Phone number')+'</label><div class="al-ph"><span>+251</span><input id="apPhone" type="tel" inputmode="tel" value="958 471 786" autocomplete="off"></div><p class="al-err" id="apErr" role="alert"></p><button class="btn al-btn" data-act="otpSend">'+(am?'ኮድ ላክልኝ':'Send me a code')+'</button><button class="al-tg" data-act="otpVerify">'+TG+(am?'በቴሌግራም ይግቡ':'Continue with Telegram')+'</button>';
+ return'<div class="phone al"><div class="al-hero">'+head+'<div class="al-pic" aria-hidden="true"><span></span><span></span><span></span></div></div><div class="al-body">'+body+'<p class="al-foot">'+POWERED+'</p></div></div>';
+}
+const TG='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#29A9EB"/><path d="M5.5 11.7l11-4.3c.5-.2 1 .1.8.9l-1.9 8.9c-.1.6-.5.8-1 .5l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2 0-.3-.3-.1l-6.6 4.1-2.8-.9c-.6-.2-.6-.6.2-.9z" fill="#fff"/></svg>';
 function render(){
  const root=$('#app');
  if(PORTAL==='hr'){
@@ -595,11 +644,9 @@ function render(){
   HR.after?.[HR.cur]?.();
  }else{
   if(!EMP.screens[EMP.cur]&&EMP.screens.home)EMP.cur='home';
-  const sc=EMP.screens[EMP.cur];
-  const tabs=[['home','home','Home'],['benefits','shield','Benefits'],['book','calendar','Book'],['claims','receipt','Claims'],['inbox','bell','Inbox']];
-  const tabRoot=EMP.tabOf?.[EMP.cur]||EMP.cur;
+  if(MODE==='app'){root.innerHTML='<div class="appmode">'+(AUTH?phoneHTML():appLogin())+'</div>';if(AUTH)EMP.after?.[EMP.cur]?.();return}
   if(!AUTH){root.innerHTML=login();return}
-  root.innerHTML=shell()+'<div class="empwrap"><div class="phone" aria-label="Employee app"><div class="scr">'+(sc?sc():'<p class="empty">Coming soon</p>')+'</div><nav class="tabs">'+tabs.map(t=>'<button data-act="emptab" data-s="'+t[0]+'" class="'+(tabRoot===t[0]?'on':'')+'">'+icon(t[1])+t[2]+(t[0]==='inbox'&&D.inbox.filter(m=>!m.read).length?'<span class="badge" style="position:absolute;margin-left:22px;margin-top:-4px">'+D.inbox.filter(m=>!m.read).length+'</span>':'')+'</button>').join('')+'</nav></div><p class="small muted empcap">Nuru app for PSI staff · Android, iPhone and Telegram</p></div>';
+  root.innerHTML=shell()+'<div class="empwrap">'+phoneHTML()+'<p class="small muted empcap">Nuru app for PSI staff · Android, iPhone and Telegram</p></div>';
   EMP.after?.[EMP.cur]?.();
  }
 }
@@ -1093,7 +1140,7 @@ S.benefits=()=>{
   const f=c.unit?(n=>n+' sessions'):birr,p=pct(u,L);
   return'<div class="ben"><div class="ben-h"><b>'+esc(c.name)+'</b><span class="num">'+f(L-u)+' left</span></div><div class="bar'+(p>85?' bad':p>60?' warn':'')+'"><i style="width:'+p+'%"></i></div><div class="ben-f muted small num"><span>'+f(u)+' used</span><span>Limit '+f(L)+'</span></div>'+(c.id==='mh'?'<p class="muted small priv-note">'+icon('lock')+'Private. PSI never sees that you used this.</p>':'')+'</div>'}).join('');
  return head('My benefits',P.name+' · '+P.family,false)+'<section class="sect">'
- +'<div class="card how"><h3>How to use your cover</h3><ol class="route">'
+ +'<div class="card how"><h3>How to use your cover</h3><ol class="howroute">'
  +'<li><span class="rn">1</span><div><b>At a partner hospital or clinic</b><p>Show your Nuru card. You pay nothing. The provider bills PSI cover directly.</p><button class="lnk" data-act="bkStart">Book a visit</button></div></li>'
  +'<li><span class="rn">2</span><div><b>At any other hospital</b><p>Pay, keep the receipt, and claim a refund in the app within 30 days.</p><button class="lnk" data-act="rfStart">Claim a refund</button></div></li></ol></div>'
  +'<div class="card"><h3>Your limits for 2026</h3>'+rows+'</div><p class="pw muted small">Limits reset on 1 Jan 2027. '+POWERED+'</p></section>';
