@@ -240,6 +240,41 @@ td.ck,th.ck{width:36px;cursor:pointer}
 .meter b{color:var(--deep)}
 input[type=datetime-local]{border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:var(--card)}
 .drawhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+/* overview v2 */
+.hero{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-radius:18px;padding:24px 28px;color:#fff;background:linear-gradient(135deg,#0E6E63 0%,#14A38F 60%,#4CC2AE 100%);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-120px;width:300px;height:420px;border-radius:999px;border:38px solid rgba(255,255,255,.07);transform:rotate(-38deg)}
+.hero-t{display:grid;gap:8px;min-width:0;flex:1 1 380px;position:relative;z-index:1}
+.hero h1{color:#fff;font-size:28px}
+.hero p{margin:0;color:#E6F7F3;max-width:62ch}
+.eyebrow{font:600 12px var(--display);letter-spacing:.08em;text-transform:uppercase;color:#CDEFE8}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:8px}
+.hero-stats div{display:grid}
+.hero-stats b{font:600 22px var(--display);color:#fff}
+.hero-stats span{font-size:12.5px;color:#D3F0EA}
+.ring{width:132px;height:132px;flex-shrink:0;position:relative;z-index:1}
+.qa-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.qa-t{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.qa-t:hover{border-color:var(--teal);transform:translateY(-2px)}
+.qa-t b{display:block;font:600 14px var(--display);color:var(--ink)}
+.qa-t small{color:var(--mute);font-size:12.5px}
+.qa-i{width:42px;height:42px;border-radius:12px;background:var(--mint);color:var(--teal-ink);display:grid;place-items:center;flex-shrink:0}
+.qa-i svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ov-top{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+@media (max-width:1000px){.ov-top{grid-template-columns:1fr}}
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.clist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.clist button{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px}
+.clist button:hover{border-color:var(--teal)}
+.cal{width:46px;flex-shrink:0;border-radius:10px;background:var(--mint);display:grid;justify-items:center;padding:5px 0;line-height:1.1}
+.cal small{font:600 10.5px var(--display);text-transform:uppercase;color:var(--teal-ink);letter-spacing:.06em}
+.cal b{font:600 19px var(--display);color:var(--ink)}
+.ct{flex:1;min-width:0;display:grid;gap:3px}
+.ct b{font-size:14px;color:var(--ink)}.ct small{color:var(--mute);font-size:12.5px}
+.ct .bar{height:6px;max-width:220px}
+@media (prefers-reduced-motion:reduce){.qa-t{transition:none}}
+.hero .eyebrow{color:#D9F4EE!important;opacity:1}
+.ov-top{align-items:start}
+@media (max-width:600px){.qa-row{grid-template-columns:1fr 1fr}.qa-t{padding:12px;gap:10px}.qa-i{width:36px;height:36px}.hero{padding:20px}.ring{width:110px;height:110px}}
 /* Employee app screens */
 .phone .scr{scroll-behavior:auto}
 .phone .apphead{background:linear-gradient(150deg,#12A08D 0%,#2DBBA6 100%);padding:14px 18px 18px;position:relative}
@@ -650,20 +685,20 @@ function campStrip(){
 }
 HR.views.overview=()=>{
  const E=D.employees,pool=sum(E,totalLimit),used=sum(E,totalUsed),act=E.filter(e=>e.status==='active').length;
- const wait=D.claims.filter(isWaitingRefund);
- return'<div class="pagehead"><div><h1>Good morning</h1><p>'+esc(D.org.name)+' · '+E.length+' staff covered by Nuru · cover year runs to '+esc(D.org.renew)+'</p></div><div class="toolbar"><button class="btn ghost" data-act="hrgo" data-v="employees">'+icon('users')+'Employees</button><button class="btn" data-act="hrgo" data-v="messages">'+icon('send')+'Message staff</button></div></div>'+
- '<div class="grid g4">'+
-  kpi('Staff covered',E.length,act+' active · '+(E.length-act)+' invited')+
-  kpi('Company benefit pool',birr(pool),'Sum of all staff limits for 2026')+
-  kpi('Used so far',birr(used),pct(used,pool)+'% of the pool')+
-  kpi('Still available',birr(pool-used),'Until '+esc(D.org.renew))+
-  kpi('Refunds waiting for you',wait.length,birr(sum(wait,c=>c.amount))+' to check')+
- '</div>'+
+ const wait=D.claims.filter(isWaitingRefund),p=pct(used,pool);
+ const today=new Date('2026-10-14T00:00').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ const ring='<svg class="ring" viewBox="0 0 120 120" role="img" aria-label="'+p+'% of the benefit pool used"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="12"/><circle cx="60" cy="60" r="50" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+(314.16*p/100).toFixed(1)+' 314.16" transform="rotate(-90 60 60)"/><text x="60" y="58" text-anchor="middle" fill="#fff" font-family="Poppins" font-weight="600" font-size="24">'+p+'%</text><text x="60" y="78" text-anchor="middle" fill="#E6F7F3" font-size="11">of pool used</text></svg>';
+ const qa=[['messages','send','Message staff','SMS or email'],['claims','receipt','Review refunds',wait.length+' waiting'],['employees','users','Employees',E.length+' covered'],['campaigns','megaphone','Campaigns','Plan a health day'],['invoices','invoice','Invoices','October due']];
+ return'<section class="hero"><div class="hero-t"><span class="eyebrow">'+today+'</span><h1>Good morning</h1><p>'+esc(D.org.name)+' staff health benefits are running well. '+wait.length+' refunds need your review and the next screening day is on Friday.</p><div class="hero-stats"><div><b class="num">'+E.length+'</b><span>staff covered</span></div><div><b class="num">'+birr(pool-used)+'</b><span>cover still available</span></div><div><b class="num">'+birr(used)+'</b><span>used in 2026</span></div></div></div>'+ring+'</section>'+
+ '<nav class="qa-row" aria-label="Quick actions">'+qa.map(q=>'<button class="qa-t" data-act="hrgo" data-v="'+q[0]+'"><span class="qa-i">'+icon(q[1])+'</span><span><b>'+q[2]+'</b><small>'+q[3]+'</small></span></button>').join('')+'</nav>'+
+ '<div class="grid ov-top">'+attention()+campList()+'</div>'+
  '<div class="grid g2"><div class="card"><div class="cardhead"><h2>Claims spend by month</h2><div class="legend"><span><i style="background:#1AAF9B"></i>Credit</span><span><i style="background:#F0A23B"></i>Refund</span></div></div>'+monthlyChart()+'<p class="small muted" style="margin:6px 0 0">ETB thousands, January to October 2026</p></div>'+careRoutes()+'</div>'+
- '<div class="grid g3">'+catSpend()+planUsage()+topProviders()+'</div>'+
- '<div class="grid g2">'+attention()+campStrip()+'</div>';
+ '<div class="grid g3">'+catSpend()+planUsage()+topProviders()+'</div>';
 };
-
+function campList(){
+ const up=D.campaigns.filter(c=>c.status!=='Done').sort((a,b)=>a.date.localeCompare(b.date)).slice(0,4);
+ return'<div class="card"><div class="cardhead"><h2>Upcoming campaigns</h2><button class="btn ghost sm" data-act="hrgo" data-v="campaigns">See all</button></div><ul class="clist">'+up.map(c=>{const d=new Date(c.date+'T00:00');return'<li><button data-act="hrgo" data-v="campaigns"><span class="cal"><small>'+d.toLocaleDateString('en-GB',{month:'short'})+'</small><b>'+d.getDate()+'</b></span><span class="ct"><b>'+esc(c.title)+'</b><small>'+esc(c.where)+' · '+(c.seats?c.booked+' of '+c.seats+' booked':c.booked+' signed up')+'</small>'+(c.seats?'<span class="bar"><i style="width:'+pct(c.booked,c.seats)+'%"></i></span>':'')+'</span>'+statusPill(c.status)+'</button></li>'}).join('')+'</ul></div>';
+}
 /* ---------- 2. Employees ---------- */
 const SEL=new Set();
 const EM={q:'',dept:'',office:'',plan:'',status:''};
